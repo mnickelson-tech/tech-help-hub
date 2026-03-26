@@ -148,6 +148,18 @@ const TROUBLESHOOTING_TREE = {
             { type: "next", text: "Restart the laptop to refresh the touch driver connection." },
             { type: "escalate", text: "If touch still does not respond, submit a tech ticket and note which classroom." }
           ]
+        },
+        {
+          id: "projector-calibrate",
+          title: "Recalibrate projector touch",
+          icon: "🎯",
+          steps: [
+            { type: "quick", text: "Press the Menu button on the projector, select the 'Pen/Touch' menu, and press Enter." },
+            { type: "quick", text: "Select 'Auto Calibration' and press Enter. A message will appear asking 'Do you want to continue?'" },
+            { type: "next", text: "Make sure the patterned image on the screen fits within the frame of the projected display, then press Enter or click 'Yes'." },
+            { type: "next", text: "Adjust the image focus if necessary while the calibration pattern is visible." },
+            { type: "next", text: "The system will auto-calibrate. A pattern will appear and then disappear. If calibration succeeds, the cursor location and pen position should match. If you see a message that calibration failed, try the steps again or contact support." }
+          ]
         }
       ]
     },
