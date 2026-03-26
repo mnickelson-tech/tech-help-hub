@@ -160,6 +160,20 @@ const TROUBLESHOOTING_TREE = {
             { type: "next", text: "Adjust the image focus if necessary while the calibration pattern is visible." },
             { type: "next", text: "The system will auto-calibrate. A pattern will appear and then disappear. If calibration succeeds, the cursor location and pen position should match. If you see a message that calibration failed, try the steps again or contact support." }
           ]
+        },
+        {
+          id: "projector-touch-offset",
+          title: "Projector touch tapping in wrong location",
+          icon: "❌➡️✅",
+          steps: [
+            { type: "quick", text: "This happens when touches are offset—when you tap one spot but it registers somewhere else. Use Touch Unit Calibration to fix this." },
+            { type: "quick", text: "Press the Menu button on the projector, select the 'Calibration' menu, and press Enter." },
+            { type: "next", text: "Select 'Touch Unit Calibration' and press Enter. Then select 'Touch Calibration' and press Enter again." },
+            { type: "next", text: "A message appears asking 'Do you want to continue?' Select 'Yes'." },
+            { type: "next", text: "Green circles will appear on the screen one at a time. Touch and hold the center of each circle with your finger until it disappears. Continue touching each circle as it appears until all circles are gone." },
+            { type: "next", text: "Important: Use the tip of your finger and touch the corner of each circle for accuracy. If you make a mistake, press Esc to go back one step, or press Esc twice to cancel the entire calibration." },
+            { type: "escalate", text: "If touch is still offset after calibration, submit a tech ticket." }
+          ]
         }
       ]
     },
