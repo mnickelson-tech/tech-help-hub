@@ -128,7 +128,7 @@ const TROUBLESHOOTING_TREE = {
           steps: [
             { type: "quick", text: "Confirm projector and laptop are both powered on." },
             { type: "quick", text: "Check HDMI/adapter connection on both ends." },
-            { type: "next", text: "Use display shortcut (Windows + P or display settings) to duplicate screen." },
+            { type: "next", text: "Press and hold the Windows key, then press P. A panel will appear on the right side of the screen. Click 'Duplicate' to show the same image on both the laptop and projector." },
             { type: "escalate", text: "If signal still missing, submit a tech ticket and note room number." }
           ]
         },
@@ -176,6 +176,7 @@ const TROUBLESHOOTING_TREE = {
           icon: "🎧",
           steps: [
             { type: "quick", text: "Increase device and app volume; unmute both." },
+            { type: "quick", text: "To use the room speaker system: click the speaker icon in the bottom-right corner of the taskbar, then click the arrow (^) next to the volume slider. A list of audio devices will appear — click 'Headphones 3- Realtek(R) Audio' to switch to the room speakers." },
             { type: "quick", text: "Check if headphones or Bluetooth speakers are connected." },
             { type: "next", text: "Restart the app or browser tab playing audio." },
             { type: "escalate", text: "If no audio from any app, submit a tech ticket." }
@@ -198,6 +199,48 @@ const TROUBLESHOOTING_TREE = {
             { type: "quick", text: "Try signing in from another browser tab or window." },
             { type: "next", text: "Use your district password reset process if available." },
             { type: "escalate", text: "If account remains locked, submit a tech ticket for reset assistance." }
+          ]
+        }
+      ]
+    },
+    {
+      id: "docking-station",
+      title: "Docking Station",
+      icon: "🔌",
+      description: "Monitors, peripherals, and power",
+      issues: [
+        {
+          id: "docking-no-display",
+          title: "Monitor not showing when docked",
+          icon: "🖥️",
+          steps: [
+            { type: "quick", text: "Make sure the docking station is plugged into power and the power light is on." },
+            { type: "quick", text: "If the power light is off, unplug the power cable from the docking station, wait 5 seconds, and firmly plug it back in." },
+            { type: "quick", text: "Unplug the USB-C/Thunderbolt cable from the laptop and plug it back in firmly." },
+            { type: "next", text: "Press and hold the Windows key, then press P. A panel will appear on the right side of the screen. Click 'Duplicate' to mirror your screen to the monitor, or 'Extend' to use it as a second screen." },
+            { type: "escalate", text: "If the monitor still has no signal, submit a tech ticket with room number and docking station model." }
+          ]
+        },
+        {
+          id: "docking-not-charging",
+          title: "Laptop not charging through dock",
+          icon: "🔋",
+          steps: [
+            { type: "quick", text: "Confirm the docking station power cable is fully seated in the dock and the outlet." },
+            { type: "quick", text: "Reseat the USB-C/Thunderbolt cable between the dock and laptop." },
+            { type: "next", text: "Test with a direct charger to confirm the laptop itself charges normally." },
+            { type: "escalate", text: "If the dock does not charge the laptop with a working outlet, submit a tech ticket." }
+          ]
+        },
+        {
+          id: "docking-peripherals",
+          title: "Keyboard/mouse not working through dock",
+          icon: "⌨️",
+          steps: [
+            { type: "quick", text: "Unplug and replug the keyboard and mouse into the docking station." },
+            { type: "quick", text: "Try a different USB port on the dock." },
+            { type: "next", text: "Disconnect the dock from the laptop, wait 10 seconds, and reconnect." },
+            { type: "escalate", text: "If peripherals still do not respond, submit a tech ticket." }
           ]
         }
       ]
