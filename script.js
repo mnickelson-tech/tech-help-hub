@@ -16,7 +16,7 @@ README - How to Customize This Guide
 */
 
 const TROUBLESHOOTING_TREE = {
-  techTicketUrl: "https://example.com/replace-with-your-tech-ticket-form",
+  techTicketUrl: "https://conroeisd.incidentiq.com/",
   categories: [
     {
       id: "laptop",
