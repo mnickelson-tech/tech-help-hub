@@ -73,6 +73,7 @@ const TROUBLESHOOTING_TREE = {
             { type: "quick", text: "Check for typos in the email username and password." },
             { type: "quick", text: "Make sure Caps Lock is off before trying again." },
             { type: "next", text: "Restart the Chromebook and retry login using school credentials." },
+            { type: "next", text: "If the student forgot their password, the teacher can reset it in Teacher SSO using the backpack icon." },
             { type: "escalate", text: "If login still fails, submit a tech ticket for account verification." }
           ]
         },
