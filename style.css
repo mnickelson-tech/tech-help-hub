@@ -1,0 +1,307 @@
+:root {
+  --bg-1: #f4f9ff;
+  --bg-2: #fffaf2;
+  --surface: #ffffff;
+  --surface-soft: #f7fbff;
+  --text: #1f2a3d;
+  --muted: #607089;
+  --primary: #1f7a8c;
+  --primary-strong: #155d6f;
+  --accent: #ff9f1c;
+  --shadow: 0 10px 30px rgba(31, 42, 61, 0.12);
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --quick-bg: #eaf8ef;
+  --quick-border: #9bd3ac;
+  --next-bg: #fff8db;
+  --next-border: #f3d56a;
+  --escalate-bg: #ffe8e8;
+  --escalate-border: #f1a0a0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Nunito", sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at 10% 10%, #eef7ff, transparent 45%),
+    radial-gradient(circle at 90% 20%, #fff2de, transparent 40%),
+    linear-gradient(155deg, var(--bg-1), var(--bg-2));
+  min-height: 100vh;
+}
+
+.app-shell {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 2.5rem;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.guide-note {
+  display: inline-block;
+  font-size: 0.9rem;
+  margin: 0;
+  color: #31587a;
+  background: #e8f4ff;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+}
+
+h1 {
+  margin: 0.9rem 0 0.4rem;
+  font-family: "Outfit", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--muted);
+}
+
+.progress-label {
+  margin: 1rem auto 0;
+  display: inline-block;
+  background: #ffffffcc;
+  border: 1px solid #dce9f7;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  font-weight: 700;
+  color: #27496d;
+}
+
+.app-main {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 1.2rem;
+  min-height: 520px;
+  animation: fadeIn 280ms ease;
+}
+
+.screen-title {
+  margin: 0.2rem 0 1rem;
+  font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.9rem;
+}
+
+.card {
+  border: none;
+  text-align: left;
+  width: 100%;
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+  padding: 1rem;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+  box-shadow: 0 3px 10px rgba(31, 42, 61, 0.08);
+  border: 1px solid #e4eef8;
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 20px rgba(31, 42, 61, 0.12);
+  background: #ffffff;
+  outline: none;
+}
+
+.card .emoji {
+  font-size: 1.35rem;
+  margin-right: 0.45rem;
+}
+
+.card-title {
+  font-weight: 800;
+  font-size: 1.02rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.card-subtitle {
+  margin: 0.45rem 0 0;
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
+.troubleshooting-wrap {
+  animation: slideIn 260ms ease;
+}
+
+.issue-heading {
+  margin: 0 0 0.3rem;
+  font-size: 1.35rem;
+}
+
+.issue-intro {
+  margin: 0 0 1rem;
+  color: var(--muted);
+}
+
+.step-list {
+  display: grid;
+  gap: 0.7rem;
+  margin-bottom: 1.2rem;
+}
+
+.step-card {
+  border-radius: 12px;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid transparent;
+}
+
+.step-card h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1rem;
+}
+
+.step-card p {
+  margin: 0;
+  font-size: 0.97rem;
+}
+
+.step-quick {
+  background: var(--quick-bg);
+  border-color: var(--quick-border);
+}
+
+.step-next {
+  background: var(--next-bg);
+  border-color: var(--next-border);
+}
+
+.step-escalate {
+  background: var(--escalate-bg);
+  border-color: var(--escalate-border);
+}
+
+.controls {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.7rem 1rem;
+  font-family: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 160ms ease, opacity 160ms ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: #eaf1f8;
+  color: #2d4a68;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: var(--primary-strong);
+}
+
+.help-box {
+  margin-top: 1.1rem;
+  border-top: 1px dashed #d3deea;
+  padding-top: 1rem;
+}
+
+.help-box h3 {
+  margin: 0 0 0.4rem;
+}
+
+.ticket-link {
+  display: inline-block;
+  text-decoration: none;
+  margin-top: 0.4rem;
+  background: #ffedd4;
+  color: #663c00;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 800;
+}
+
+.ticket-link:hover,
+.ticket-link:focus-visible {
+  background: #ffe1b7;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: #f9fcff;
+  border: 1px dashed #c8dcf0;
+  border-radius: var(--radius-md);
+}
+
+.app-footer {
+  text-align: center;
+  margin-top: 1rem;
+  color: #50637a;
+  font-size: 0.92rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .app-main {
+    padding: 1rem;
+    min-height: 460px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
+
+  .btn,
+  .ticket-link {
+    width: 100%;
+    text-align: center;
+  }
+}
