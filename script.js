@@ -27,7 +27,7 @@ const TROUBLESHOOTING_TREE = {
           steps: [
             { type: "quick", text: "Hold the power button for 10 seconds, then press it once to restart." },
             { type: "quick", text: "Plug in the charger and confirm the charging light appears." },
-            { type: "next", text: "Try a different outlet and check if the power cable is firmly connected." },
+            { type: "next", text: "Try a different outlet and check if the power cable is firmly connected. Tip: avoid the grey outlets in the room — they shut off automatically after a period of inactivity and may not be supplying power." },
             { type: "escalate", text: "If there is still no power after 5 minutes of charging, submit a tech ticket." }
           ]
         },
@@ -215,9 +215,10 @@ const TROUBLESHOOTING_TREE = {
           icon: "🖥️",
           steps: [
             { type: "quick", text: "Make sure the docking station is plugged into power and the power light is on." },
-            { type: "quick", text: "If the power light is off, unplug the power cable from the docking station, wait 5 seconds, and firmly plug it back in." },
+            { type: "quick", text: "If the power light is off, unplug the power cable from the docking station, wait 5 seconds, and firmly plug it back in. Tip: if there is still no power, check that it is not plugged into a grey outlet — those shut off automatically after inactivity. Move the cable to a standard white outlet if so." },
             { type: "quick", text: "Unplug the USB-C/Thunderbolt cable from the laptop and plug it back in firmly." },
             { type: "next", text: "Press and hold the Windows key, then press P. A panel will appear on the right side of the screen. Click 'Duplicate' to mirror your screen to the monitor, or 'Extend' to use it as a second screen." },
+            { type: "next", text: "If the monitor still does not appear, right-click the desktop and select 'Display settings'. Scroll down to see all detected displays. If a display shows as 'Disabled', click on it, scroll down to the 'Multiple displays' section, uncheck 'Disconnect this display', then click 'Apply'." },
             { type: "escalate", text: "If the monitor still has no signal, submit a tech ticket with room number and docking station model." }
           ]
         },
@@ -226,7 +227,7 @@ const TROUBLESHOOTING_TREE = {
           title: "Laptop not charging through dock",
           icon: "🔋",
           steps: [
-            { type: "quick", text: "Confirm the docking station power cable is fully seated in the dock and the outlet." },
+            { type: "quick", text: "Confirm the docking station power cable is fully seated in the dock and the outlet. Tip: if the outlet has no power, check whether it is a grey outlet — these shut off after inactivity. Try a standard white outlet instead." },
             { type: "quick", text: "Reseat the USB-C/Thunderbolt cable between the dock and laptop." },
             { type: "next", text: "Test with a direct charger to confirm the laptop itself charges normally." },
             { type: "escalate", text: "If the dock does not charge the laptop with a working outlet, submit a tech ticket." }
