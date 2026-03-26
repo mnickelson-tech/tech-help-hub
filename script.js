@@ -124,7 +124,7 @@ const TROUBLESHOOTING_TREE = {
       id: "projector",
       title: "Projector",
       icon: "📽️",
-      description: "Display and clarity fixes",
+      description: "Display and touch troubleshooting",
       issues: [
         {
           id: "projector-signal",
@@ -138,14 +138,15 @@ const TROUBLESHOOTING_TREE = {
           ]
         },
         {
-          id: "projector-blurry",
-          title: "Projector image is blurry",
-          icon: "🔍",
+          id: "projector-touch",
+          title: "Interactive projector touch not working",
+          icon: "👆",
           steps: [
-            { type: "quick", text: "Adjust the focus ring on projector lens." },
-            { type: "quick", text: "Make sure projector is facing screen straight on." },
-            { type: "next", text: "Clean lens gently with a microfiber cloth." },
-            { type: "escalate", text: "If image remains blurry, submit a tech ticket for projector maintenance." }
+            { type: "quick", text: "Confirm the projector is powered on and displaying content." },
+            { type: "quick", text: "Check that the USB cable connecting the projector to the laptop is firmly plugged in on both ends." },
+            { type: "next", text: "Restart the projector by unplugging it for 10 seconds, then plugging it back in and waiting for it to fully boot." },
+            { type: "next", text: "Restart the laptop to refresh the touch driver connection." },
+            { type: "escalate", text: "If touch still does not respond, submit a tech ticket and note which classroom." }
           ]
         }
       ]
