@@ -224,6 +224,41 @@ h1 {
   background: var(--primary-strong);
 }
 
+.video-block {
+  margin-bottom: 1.5rem;
+}
+
+.video-label {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.video-direct {
+  width: 100%;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+}
+
 .help-box {
   margin-top: 1.1rem;
   border-top: 1px dashed #d3deea;

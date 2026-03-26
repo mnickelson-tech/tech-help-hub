@@ -9,6 +9,10 @@ README - How to Customize This Guide
    - type can be "quick" (green), "next" (yellow), or "escalate" (red).
 4. Change the tech ticket link:
    - Update TROUBLESHOOTING_TREE.techTicketUrl below.
+5. Add a help video to an issue:
+   - Add a video property to any issue with a YouTube link or direct video URL.
+   - Example: video: "https://www.youtube.com/watch?v=YOUR_VIDEO_ID"
+   - The video will appear automatically at the top of that issue's troubleshooting steps.
 */
 
 const TROUBLESHOOTING_TREE = {
@@ -406,6 +410,24 @@ function renderIssues() {
   app.replaceChildren(title, grid, controls);
 }
 
+function getVideoEmbedUrl(url) {
+  try {
+    const parsed = new URL(url);
+    // Handle https://www.youtube.com/watch?v=ID
+    if ((parsed.hostname === "www.youtube.com" || parsed.hostname === "youtube.com") && parsed.searchParams.get("v")) {
+      return `https://www.youtube.com/embed/${parsed.searchParams.get("v")}`;
+    }
+    // Handle https://youtu.be/ID
+    if (parsed.hostname === "youtu.be") {
+      return `https://www.youtube.com/embed${parsed.pathname}`;
+    }
+    // Return as-is for direct video files
+    return url;
+  } catch {
+    return null;
+  }
+}
+
 function renderTroubleshooting() {
   const issue = getSelectedIssue();
 
@@ -453,7 +475,36 @@ function renderTroubleshooting() {
     <a class="ticket-link" href="${TROUBLESHOOTING_TREE.techTicketUrl}" target="_blank" rel="noopener noreferrer">📝 Submit a Tech Ticket</a>
   `;
 
-  wrapper.append(heading, intro, stepList, controls, helpBox);
+  const elements = [heading, intro];
+
+  if (issue.video) {
+    const embedUrl = getVideoEmbedUrl(issue.video);
+    if (embedUrl) {
+      const videoBlock = document.createElement("div");
+      videoBlock.className = "video-block";
+      const isYoutube = embedUrl.includes("youtube.com/embed");
+      if (isYoutube) {
+        videoBlock.innerHTML = `
+          <p class="video-label">📹 Video Guide</p>
+          <div class="video-wrapper">
+            <iframe src="${embedUrl}" title="Video guide" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+          </div>
+        `;
+      } else {
+        videoBlock.innerHTML = `
+          <p class="video-label">📹 Video Guide</p>
+          <video class="video-direct" controls>
+            <source src="${embedUrl}">
+            Your browser does not support video playback.
+          </video>
+        `;
+      }
+      elements.push(videoBlock);
+    }
+  }
+
+  elements.push(stepList, controls, helpBox);
+  wrapper.append(...elements);
   app.replaceChildren(wrapper);
 }
 
