@@ -174,6 +174,21 @@ const TROUBLESHOOTING_TREE = {
             { type: "next", text: "Important: Use the tip of your finger and touch the corner of each circle for accuracy. If you make a mistake, press Esc to go back one step, or press Esc twice to cancel the entire calibration." },
             { type: "escalate", text: "If touch is still offset after calibration, submit a tech ticket." }
           ]
+        },
+        {
+          id: "projector-touch-laptop",
+          title: "Touch registers on laptop instead of projector",
+          icon: "💻➡️📊",
+          steps: [
+            { type: "quick", text: "This means Windows does not recognize the projector as the touch input device. You need to set up the Tablet PC Settings on your laptop." },
+            { type: "next", text: "Open Windows Search and type 'control panel', then open Control Panel." },
+            { type: "next", text: "In Control Panel, find and click 'Tablet PC Settings'." },
+            { type: "next", text: "In the window that appears, click the 'Set Up' button." },
+            { type: "next", text: "You will be asked whether to set up for pen or finger input. Choose the one you are using to interact with the projector." },
+            { type: "next", text: "A white screen will appear and you will see an instruction to 'Press Enter'. Keep pressing Enter until the setup screen moves to your projector display." },
+            { type: "next", text: "Once you see the setup screen on the projector, tap the projector screen. The system will calibrate and recognize the projector as your touch input device." },
+            { type: "escalate", text: "If touches still register on the laptop after setup, submit a tech ticket for further assistance." }
+          ]
         }
       ]
     },
