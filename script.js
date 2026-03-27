@@ -331,6 +331,11 @@ const STEP_IMAGE_HINTS = [
     term: "backpack icon",
     imagePath: "images/images/backpack.png",
     alt: "Teacher SSO backpack icon"
+  },
+  {
+    term: "Disabled",
+    imagePath: "images/images/diabled-display.png",
+    alt: "Disabled display setting"
   }
 ];
 
