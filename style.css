@@ -173,6 +173,55 @@ h1 {
   font-size: 0.97rem;
 }
 
+.hint-term {
+  position: relative;
+  display: inline-block;
+  font-weight: 800;
+  color: #145574;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+  cursor: help;
+}
+
+.hint-term:focus-visible {
+  outline: 2px solid #6aa5c8;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.hint-popup {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%) scale(0.98);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 140ms ease, transform 140ms ease;
+  background: #ffffff;
+  border: 1px solid #d8e6f3;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  padding: 0.35rem;
+  z-index: 10;
+  min-width: 170px;
+}
+
+.hint-popup img {
+  display: block;
+  width: min(260px, 62vw);
+  max-height: 180px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.hint-term:hover .hint-popup,
+.hint-term:focus .hint-popup,
+.hint-term:focus-within .hint-popup {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
 .step-quick {
   background: var(--quick-bg);
   border-color: var(--quick-border);
@@ -338,5 +387,16 @@ h1 {
   .ticket-link {
     width: 100%;
     text-align: center;
+  }
+
+  .hint-popup {
+    left: 0;
+    transform: translateX(0) scale(0.98);
+  }
+
+  .hint-term:hover .hint-popup,
+  .hint-term:focus .hint-popup,
+  .hint-term:focus-within .hint-popup {
+    transform: translateX(0) scale(1);
   }
 }

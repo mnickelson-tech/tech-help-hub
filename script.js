@@ -144,7 +144,7 @@ const TROUBLESHOOTING_TREE = {
           steps: [
             { type: "quick", text: "Confirm the projector is powered on and displaying content." },
             { type: "quick", text: "Check that the USB cable connecting the projector to the laptop is firmly plugged in on both ends." },
-            { type: "next", text: "Press the User button on the projector remote to run auto calibration for touch." },
+            { type: "next", text: "Restart the projector by unplugging it for 10 seconds, then plugging it back in and waiting for it to fully boot." },
             { type: "next", text: "Restart the laptop to refresh the touch driver connection." },
             { type: "escalate", text: "If touch still does not respond, submit a tech ticket and note which classroom." }
           ]
@@ -294,71 +294,6 @@ const TROUBLESHOOTING_TREE = {
       ]
     },
     {
-      id: "printer",
-      title: "Printer",
-      icon: "🖨️",
-      description: "Connection and printing troubleshooting",
-      issues: [
-        {
-          id: "printer-offline",
-          title: "Printer is offline",
-          icon: "📴",
-          steps: [
-            { type: "quick", text: "Make sure the printer is powered on and no warning lights are showing." },
-            { type: "quick", text: "Check that the network cable is connected or the printer is connected to school Wi-Fi." },
-            { type: "next", text: "On your laptop, open Settings > Bluetooth & devices > Printers & scanners, select the printer, and make sure 'Use printer offline' is not enabled." },
-            { type: "next", text: "Restart the printer, then restart your laptop and try a test print." },
-            { type: "escalate", text: "If the printer still shows offline, submit a tech ticket with the printer name and room number." }
-          ]
-        },
-        {
-          id: "printer-queue-stuck",
-          title: "Print jobs stuck in queue",
-          icon: "🧾",
-          steps: [
-            { type: "quick", text: "Open the printer queue and cancel all stuck print jobs." },
-            { type: "quick", text: "Turn the printer off for 10 seconds, then turn it back on." },
-            { type: "next", text: "Send a one-page test print to confirm the queue is cleared." },
-            { type: "next", text: "If jobs keep getting stuck, restart your laptop to reset the print service." },
-            { type: "escalate", text: "If the queue still freezes, submit a tech ticket with the time and document name." }
-          ]
-        },
-        {
-          id: "printer-wrong-selected",
-          title: "Wrong printer selected",
-          icon: "🎯",
-          steps: [
-            { type: "quick", text: "Before printing, open the printer dropdown and confirm the classroom printer is selected." },
-            { type: "quick", text: "In Printers & scanners, set the classroom printer as default." },
-            { type: "next", text: "Print a one-page test document to verify it goes to the correct printer." },
-            { type: "escalate", text: "If jobs still route to the wrong printer, submit a tech ticket with both printer names." }
-          ]
-        },
-        {
-          id: "printer-no-output",
-          title: "Nothing prints with no error",
-          icon: "📄",
-          steps: [
-            { type: "quick", text: "Make sure paper is loaded and trays or doors are fully closed." },
-            { type: "quick", text: "Check toner or ink status on the printer panel." },
-            { type: "next", text: "Print a self-test page from the printer menu. If that works, remove and re-add the printer on your laptop." },
-            { type: "escalate", text: "If there is still no output, submit a tech ticket and include what app you printed from." }
-          ]
-        },
-        {
-          id: "printer-quality",
-          title: "Print quality is poor",
-          icon: "🖨️",
-          steps: [
-            { type: "quick", text: "Check toner or ink levels and replace low cartridges if needed." },
-            { type: "quick", text: "Run the printer cleaning or maintenance cycle from the printer menu." },
-            { type: "next", text: "Use fresh paper and make sure print quality is not set to Draft mode." },
-            { type: "escalate", text: "If print quality is still streaky or faded, submit a tech ticket for printer maintenance." }
-          ]
-        }
-      ]
-    },
-    {
       id: "other",
       title: "Other",
       icon: "🧰",
@@ -379,6 +314,25 @@ const TROUBLESHOOTING_TREE = {
     }
   ]
 };
+
+// Add new terms here as you add more images to /images/images.
+const STEP_IMAGE_HINTS = [
+  {
+    term: "Windows key",
+    imagePath: "images/images/windows-key.png",
+    alt: "Windows key location"
+  },
+  {
+    term: "Duplicate",
+    imagePath: "images/images/duplicate-screen.png",
+    alt: "Duplicate display option"
+  },
+  {
+    term: "backpack icon",
+    imagePath: "images/images/backpack.png",
+    alt: "Teacher SSO backpack icon"
+  }
+];
 
 const app = document.getElementById("app");
 const progressLabel = document.getElementById("progressLabel");
@@ -449,6 +403,33 @@ function getStepClass(type) {
   if (type === "quick") return "step-quick";
   if (type === "next") return "step-next";
   return "step-escalate";
+}
+
+function escapeHtml(text) {
+  return text
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function escapeRegExp(text) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function formatStepTextWithImageHints(text) {
+  let formatted = escapeHtml(text);
+
+  const sortedHints = [...STEP_IMAGE_HINTS].sort((a, b) => b.term.length - a.term.length);
+  sortedHints.forEach((hint) => {
+    const termRegex = new RegExp(escapeRegExp(hint.term), "gi");
+    formatted = formatted.replace(termRegex, (match) => {
+      return `<span class="hint-term" tabindex="0">${match}<span class="hint-popup"><img src="${hint.imagePath}" alt="${hint.alt}" loading="lazy" /></span></span>`;
+    });
+  });
+
+  return formatted;
 }
 
 function updateProgressLabel() {
@@ -568,7 +549,7 @@ function renderTroubleshooting() {
     stepCard.className = `step-card ${getStepClass(step.type)}`;
     stepCard.innerHTML = `
       <h3>Step ${index + 1}</h3>
-      <p>${step.text}</p>
+      <p>${formatStepTextWithImageHints(step.text)}</p>
     `;
     stepList.appendChild(stepCard);
   });
