@@ -294,6 +294,71 @@ const TROUBLESHOOTING_TREE = {
       ]
     },
     {
+      id: "printer",
+      title: "Printer",
+      icon: "🖨️",
+      description: "Connection and printing troubleshooting",
+      issues: [
+        {
+          id: "printer-offline",
+          title: "Printer is offline",
+          icon: "📴",
+          steps: [
+            { type: "quick", text: "Make sure the printer is powered on and no warning lights are showing." },
+            { type: "quick", text: "Check that the network cable is connected or the printer is connected to school Wi-Fi." },
+            { type: "next", text: "On your laptop, open Settings > Bluetooth & devices > Printers & scanners, select the printer, and make sure 'Use printer offline' is not enabled." },
+            { type: "next", text: "Restart the printer, then restart your laptop and try a test print." },
+            { type: "escalate", text: "If the printer still shows offline, submit a tech ticket with the printer name and room number." }
+          ]
+        },
+        {
+          id: "printer-queue-stuck",
+          title: "Print jobs stuck in queue",
+          icon: "🧾",
+          steps: [
+            { type: "quick", text: "Open the printer queue and cancel all stuck print jobs." },
+            { type: "quick", text: "Turn the printer off for 10 seconds, then turn it back on." },
+            { type: "next", text: "Send a one-page test print to confirm the queue is cleared." },
+            { type: "next", text: "If jobs keep getting stuck, restart your laptop to reset the print service." },
+            { type: "escalate", text: "If the queue still freezes, submit a tech ticket with the time and document name." }
+          ]
+        },
+        {
+          id: "printer-wrong-selected",
+          title: "Wrong printer selected",
+          icon: "🎯",
+          steps: [
+            { type: "quick", text: "Before printing, open the printer dropdown and confirm the classroom printer is selected." },
+            { type: "quick", text: "In Printers & scanners, set the classroom printer as default." },
+            { type: "next", text: "Print a one-page test document to verify it goes to the correct printer." },
+            { type: "escalate", text: "If jobs still route to the wrong printer, submit a tech ticket with both printer names." }
+          ]
+        },
+        {
+          id: "printer-no-output",
+          title: "Nothing prints with no error",
+          icon: "📄",
+          steps: [
+            { type: "quick", text: "Make sure paper is loaded and trays or doors are fully closed." },
+            { type: "quick", text: "Check toner or ink status on the printer panel." },
+            { type: "next", text: "Print a self-test page from the printer menu. If that works, remove and re-add the printer on your laptop." },
+            { type: "escalate", text: "If there is still no output, submit a tech ticket and include what app you printed from." }
+          ]
+        },
+        {
+          id: "printer-quality",
+          title: "Print quality is poor",
+          icon: "🖨️",
+          steps: [
+            { type: "quick", text: "Check toner or ink levels and replace low cartridges if needed." },
+            { type: "quick", text: "Run the printer cleaning or maintenance cycle from the printer menu." },
+            { type: "next", text: "Use fresh paper and make sure print quality is not set to Draft mode." },
+            { type: "escalate", text: "If print quality is still streaky or faded, submit a tech ticket for printer maintenance." }
+          ]
+        }
+      ]
+    },
+    {
       id: "other",
       title: "Other",
       icon: "🧰",
