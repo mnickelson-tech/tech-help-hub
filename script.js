@@ -144,7 +144,7 @@ const TROUBLESHOOTING_TREE = {
           steps: [
             { type: "quick", text: "Confirm the projector is powered on and displaying content." },
             { type: "quick", text: "Check that the USB cable connecting the projector to the laptop is firmly plugged in on both ends." },
-            { type: "next", text: "Restart the projector by unplugging it for 10 seconds, then plugging it back in and waiting for it to fully boot." },
+            { type: "next", text: "Press the User button on the projector remote to run auto calibration for touch." },
             { type: "next", text: "Restart the laptop to refresh the touch driver connection." },
             { type: "escalate", text: "If touch still does not respond, submit a tech ticket and note which classroom." }
           ]
