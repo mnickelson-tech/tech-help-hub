@@ -128,7 +128,7 @@ const TROUBLESHOOTING_TREE = {
       issues: [
         {
           id: "projector-signal",
-          title: "Projector says no signal",
+          title: "Projector not working",
           icon: "⚠️",
           steps: [
             { type: "quick", text: "Confirm projector and laptop are both powered on." },
@@ -380,6 +380,72 @@ const TROUBLESHOOTING_TREE = {
   ]
 };
 
+const INTERACTIVE_FLOWS = {
+  "projector-signal": {
+    startNodeId: "power-check",
+    orderedNodeIds: ["power-check", "power-fix", "no-signal-check", "hdmi-fix", "windows-p-fix"],
+    nodes: {
+      "power-check": {
+        type: "question",
+        title: "Question 1",
+        text: "Is the projector powered on?",
+        choices: [
+          { label: "Yes, it is on", nextId: "no-signal-check" },
+          { label: "Nope, it is off", nextId: "power-fix" }
+        ]
+      },
+      "power-fix": {
+        type: "action",
+        title: "Quick Fix",
+        text: "Turn the projector on and wait for it to fully boot. Tiny blinking lights are normal. Did that fix it?",
+        choices: [
+          { label: "Yes, we are back in business", nextId: "success" },
+          { label: "No, still not working", nextId: "no-signal-check" }
+        ]
+      },
+      "no-signal-check": {
+        type: "question",
+        title: "Question 2",
+        text: "Do you see 'No Signal' on the projector screen?",
+        choices: [
+          { label: "Yes, I see No Signal", nextId: "hdmi-fix" },
+          { label: "No, but it still is not working", nextId: "windows-p-fix" }
+        ]
+      },
+      "hdmi-fix": {
+        type: "action",
+        title: "Quick Fix",
+        text: "Check the HDMI cable and adapter on both ends. Unplug and replug firmly. Did that fix it?",
+        choices: [
+          { label: "Yes, picture is back", nextId: "success" },
+          { label: "No, still no luck", nextId: "windows-p-fix" }
+        ]
+      },
+      "windows-p-fix": {
+        type: "action",
+        title: "Quick Fix",
+        text: "Press Windows + P, then choose Duplicate so the laptop and projector show the same thing. Did that fix it?",
+        choices: [
+          { label: "Yes, fixed", nextId: "success" },
+          { label: "No, summon tech backup", nextId: "contact-tech" }
+        ]
+      },
+      success: {
+        type: "result",
+        result: "success",
+        title: "Nice Work",
+        text: "You did it! Tech Hero status unlocked."
+      },
+      "contact-tech": {
+        type: "result",
+        result: "fallback",
+        title: "Time To Escalate",
+        text: "Okay, now it’s officially my turn—contact tech."
+      }
+    }
+  }
+};
+
 const app = document.getElementById("app");
 const progressLabel = document.getElementById("progressLabel");
 
@@ -387,6 +453,7 @@ const state = {
   currentView: "categories",
   selectedCategoryId: null,
   selectedIssueId: null,
+  currentFlowNodeId: null,
   // Stores previous view snapshots so Back behaves predictably.
   history: []
 };
@@ -395,7 +462,8 @@ function pushHistory() {
   state.history.push({
     currentView: state.currentView,
     selectedCategoryId: state.selectedCategoryId,
-    selectedIssueId: state.selectedIssueId
+    selectedIssueId: state.selectedIssueId,
+    currentFlowNodeId: state.currentFlowNodeId
   });
 }
 
@@ -409,6 +477,7 @@ function goBack() {
   state.currentView = previous.currentView;
   state.selectedCategoryId = previous.selectedCategoryId;
   state.selectedIssueId = previous.selectedIssueId;
+  state.currentFlowNodeId = previous.currentFlowNodeId || null;
   render();
 }
 
@@ -416,6 +485,7 @@ function startOver() {
   state.currentView = "categories";
   state.selectedCategoryId = null;
   state.selectedIssueId = null;
+  state.currentFlowNodeId = null;
   state.history = [];
   render();
 }
@@ -425,6 +495,7 @@ function openCategory(categoryId) {
   state.currentView = "issues";
   state.selectedCategoryId = categoryId;
   state.selectedIssueId = null;
+  state.currentFlowNodeId = null;
   render();
 }
 
@@ -432,6 +503,7 @@ function openIssue(issueId) {
   pushHistory();
   state.currentView = "troubleshooting";
   state.selectedIssueId = issueId;
+  state.currentFlowNodeId = INTERACTIVE_FLOWS[issueId]?.startNodeId || null;
   render();
 }
 
@@ -457,8 +529,93 @@ function updateProgressLabel() {
   } else if (state.currentView === "issues") {
     progressLabel.textContent = "Step 2: Choose an issue";
   } else {
+    const flow = INTERACTIVE_FLOWS[state.selectedIssueId];
+    if (flow) {
+      const nodeIndex = flow.orderedNodeIds.indexOf(state.currentFlowNodeId);
+      if (nodeIndex >= 0) {
+        progressLabel.textContent = `Step 3: Projector flow ${nodeIndex + 1}/${flow.orderedNodeIds.length}`;
+      } else {
+        progressLabel.textContent = "Step 3: Projector flow complete";
+      }
+      return;
+    }
     progressLabel.textContent = "Step 3: Try these fixes";
   }
+}
+
+function renderInteractiveTroubleshooting(issue, flow) {
+  const wrapper = document.createElement("section");
+  wrapper.className = "troubleshooting-wrap";
+
+  const heading = document.createElement("h2");
+  heading.className = "issue-heading";
+  heading.textContent = `${issue.icon || "🛠️"} ${issue.title}`;
+
+  const intro = document.createElement("p");
+  intro.className = "issue-intro";
+  intro.textContent = "One click at a time. We will tame this projector gremlin together.";
+
+  const node = flow.nodes[state.currentFlowNodeId] || flow.nodes[flow.startNodeId];
+  if (!node) {
+    renderFallback("Flow missing", "This interactive flow is missing setup data in script.js.");
+    return;
+  }
+
+  const flowCard = document.createElement("article");
+  flowCard.className = "flow-card";
+  if (node.type === "result") {
+    flowCard.classList.add(node.result === "success" ? "flow-result-success" : "flow-result-fallback");
+  }
+
+  const nodeIndex = flow.orderedNodeIds.indexOf(state.currentFlowNodeId);
+  const progressText = nodeIndex >= 0
+    ? `Progress: ${nodeIndex + 1} of ${flow.orderedNodeIds.length}`
+    : `Progress: ${flow.orderedNodeIds.length} of ${flow.orderedNodeIds.length}`;
+
+  flowCard.innerHTML = `
+    <p class="flow-progress">${progressText}</p>
+    <h3>${node.title}</h3>
+    <p>${node.text}</p>
+  `;
+
+  const flowChoices = document.createElement("div");
+  flowChoices.className = "flow-choices";
+
+  if (node.choices && node.choices.length > 0) {
+    node.choices.forEach((choice) => {
+      const choiceButton = document.createElement("button");
+      choiceButton.type = "button";
+      choiceButton.className = "btn flow-choice-btn";
+      choiceButton.textContent = choice.label;
+      choiceButton.addEventListener("click", () => {
+        pushHistory();
+        state.currentFlowNodeId = choice.nextId;
+        render();
+      });
+      flowChoices.appendChild(choiceButton);
+    });
+  }
+
+  const controls = createControls();
+  const nodes = [heading, intro, flowCard];
+
+  if (flowChoices.childElementCount > 0) {
+    nodes.push(flowChoices);
+  }
+
+  if (node.type === "result" && node.result === "fallback") {
+    const helpBox = document.createElement("section");
+    helpBox.className = "help-box";
+    helpBox.innerHTML = `
+      <p>Send a ticket so the tech team can jump in.</p>
+      <a class="ticket-link" href="${TROUBLESHOOTING_TREE.techTicketUrl}" target="_blank" rel="noopener noreferrer">📝 Submit a Tech Ticket</a>
+    `;
+    nodes.push(helpBox);
+  }
+
+  nodes.push(controls);
+  wrapper.append(...nodes);
+  app.replaceChildren(wrapper);
 }
 
 function createCardButton(title, subtitle, icon, onClick) {
@@ -541,6 +698,12 @@ function renderTroubleshooting() {
 
   if (!issue) {
     renderFallback("Issue not found", "This troubleshooting path is missing. Please go back or start over.");
+    return;
+  }
+
+  const flow = INTERACTIVE_FLOWS[issue.id];
+  if (flow) {
+    renderInteractiveTroubleshooting(issue, flow);
     return;
   }
 
