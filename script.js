@@ -336,6 +336,11 @@ const STEP_IMAGE_HINTS = [
     term: "Disabled",
     imagePath: "images/images/diabled-display.png",
     alt: "Disabled display setting"
+  },
+  {
+    term: "power cable",
+    imagePath: "images/images/power-cable.png",
+    alt: "Power cable example"
   }
 ];
 
