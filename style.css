@@ -188,67 +188,6 @@ h1 {
   border-color: var(--escalate-border);
 }
 
-.flow-card {
-  background: var(--surface-soft);
-  border: 1px solid #e4eef8;
-  border-radius: var(--radius-md);
-  box-shadow: 0 3px 10px rgba(31, 42, 61, 0.08);
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
-
-.flow-card h3 {
-  margin: 0 0 0.35rem;
-  font-size: 1.08rem;
-}
-
-.flow-card p {
-  margin: 0;
-}
-
-.flow-progress {
-  display: inline-block;
-  margin-bottom: 0.55rem;
-  padding: 0.3rem 0.55rem;
-  background: #ffffff;
-  border: 1px solid #dce9f7;
-  border-radius: 999px;
-  font-weight: 700;
-  color: #31587a;
-  font-size: 0.88rem;
-}
-
-.flow-choices {
-  display: grid;
-  gap: 0.7rem;
-  margin-bottom: 1rem;
-}
-
-.flow-choice-btn {
-  width: 100%;
-  text-align: left;
-  background: var(--primary);
-  color: #ffffff;
-  border-radius: var(--radius-md);
-  padding: 0.9rem 1rem;
-  font-size: 1rem;
-}
-
-.flow-choice-btn:hover,
-.flow-choice-btn:focus-visible {
-  background: var(--primary-strong);
-}
-
-.flow-result-success {
-  background: var(--quick-bg);
-  border-color: var(--quick-border);
-}
-
-.flow-result-fallback {
-  background: var(--escalate-bg);
-  border-color: var(--escalate-border);
-}
-
 .controls {
   display: flex;
   gap: 0.65rem;
