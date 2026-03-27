@@ -454,7 +454,6 @@ const state = {
   selectedCategoryId: null,
   selectedIssueId: null,
   currentFlowNodeId: null,
-  lastCelebratedFlowNodeId: null,
   // Stores previous view snapshots so Back behaves predictably.
   history: []
 };
@@ -487,7 +486,6 @@ function startOver() {
   state.selectedCategoryId = null;
   state.selectedIssueId = null;
   state.currentFlowNodeId = null;
-  state.lastCelebratedFlowNodeId = null;
   state.history = [];
   render();
 }
@@ -498,7 +496,6 @@ function openCategory(categoryId) {
   state.selectedCategoryId = categoryId;
   state.selectedIssueId = null;
   state.currentFlowNodeId = null;
-  state.lastCelebratedFlowNodeId = null;
   render();
 }
 
@@ -507,37 +504,7 @@ function openIssue(issueId) {
   state.currentView = "troubleshooting";
   state.selectedIssueId = issueId;
   state.currentFlowNodeId = INTERACTIVE_FLOWS[issueId]?.startNodeId || null;
-  state.lastCelebratedFlowNodeId = null;
   render();
-}
-
-function launchConfettiBurst() {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    return;
-  }
-
-  const existing = document.querySelector(".confetti-layer");
-  if (existing) {
-    existing.remove();
-  }
-
-  const layer = document.createElement("div");
-  layer.className = "confetti-layer";
-  const pieceCount = 70;
-
-  for (let i = 0; i < pieceCount; i += 1) {
-    const piece = document.createElement("span");
-    piece.className = "confetti-piece";
-    piece.style.left = `${Math.random() * 100}%`;
-    piece.style.backgroundColor = `hsl(${Math.floor(Math.random() * 360)} 85% 58%)`;
-    piece.style.animationDelay = `${Math.random() * 0.35}s`;
-    piece.style.animationDuration = `${1.6 + Math.random() * 0.9}s`;
-    piece.style.transform = `rotate(${Math.floor(Math.random() * 360)}deg)`;
-    layer.appendChild(piece);
-  }
-
-  document.body.appendChild(layer);
-  window.setTimeout(() => layer.remove(), 2600);
 }
 
 function getSelectedCategory() {
@@ -592,15 +559,6 @@ function renderInteractiveTroubleshooting(issue, flow) {
   if (!node) {
     renderFallback("Flow missing", "This interactive flow is missing setup data in script.js.");
     return;
-  }
-
-  if (node.type === "result" && node.result === "success") {
-    if (state.lastCelebratedFlowNodeId !== state.currentFlowNodeId) {
-      launchConfettiBurst();
-      state.lastCelebratedFlowNodeId = state.currentFlowNodeId;
-    }
-  } else {
-    state.lastCelebratedFlowNodeId = null;
   }
 
   const flowCard = document.createElement("article");
