@@ -277,6 +277,25 @@ h1 {
   margin-bottom: 1.5rem;
 }
 
+.issue-image-block {
+  margin-bottom: 1.5rem;
+}
+
+.issue-image-label {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--primary);
+  margin: 0 0 0.5rem;
+}
+
+.issue-image {
+  display: block;
+  width: min(100%, 520px);
+  border-radius: var(--radius-md);
+  border: 1px solid #dbe8f4;
+  box-shadow: var(--shadow);
+}
+
 .video-label {
   font-weight: 700;
   font-size: 1rem;

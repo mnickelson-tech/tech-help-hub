@@ -138,6 +138,19 @@ const TROUBLESHOOTING_TREE = {
           ]
         },
         {
+          id: "projector-hdmi-loose",
+          title: "Projector shows colored lines or a striped screen",
+          icon: "🌈",
+          image: "images/images/HDMI-trouble.jpg",
+          imageAlt: "Projector display showing colored vertical lines from a loose HDMI connection",
+          steps: [
+            { type: "quick", text: "This usually happens when the HDMI cable is loose or gets jarred." },
+            { type: "quick", text: "Go to the docking station and unplug the HDMI cable." },
+            { type: "next", text: "Plug the HDMI cable back in firmly at the docking station and make sure it is fully seated." },
+            { type: "escalate", text: "If the projector still shows colored lines after reconnecting the HDMI cable, submit a tech ticket." }
+          ]
+        },
+        {
           id: "projector-touch",
           title: "Interactive projector touch not working",
           icon: "👆",
@@ -575,6 +588,16 @@ function renderTroubleshooting() {
   `;
 
   const elements = [heading, intro];
+
+  if (issue.image) {
+    const imageBlock = document.createElement("div");
+    imageBlock.className = "issue-image-block";
+    imageBlock.innerHTML = `
+      <p class="issue-image-label">Reference Photo</p>
+      <img class="issue-image" src="${issue.image}" alt="${escapeHtml(issue.imageAlt || issue.title)}" loading="lazy" />
+    `;
+    elements.push(imageBlock);
+  }
 
   if (issue.video) {
     const embedUrl = getVideoEmbedUrl(issue.video);
